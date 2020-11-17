@@ -8,12 +8,19 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 }
 
 if ($_POST) {
-  if (empty($_POST['name']) || empty($_POST['email'])) {
+  if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['phone'])|| empty($_POST['address'])) {
     if (empty($_POST['name'])) {
       $nameError = 'Name cannot be null';
     }
     if (empty($_POST['email'])) {
       $emailError = 'Email cannot be null';
+    }
+
+    if (empty($_POST['phone'])) {
+      $phError = 'Phone cannot be null';
+    }
+    if (empty($_POST['address'])) {
+      $addErrror = 'Address cannot be null';
     }
   }elseif (!empty($_POST['password']) && strlen($_POST['password']) < 4) {
     $passwordError = 'Password should be 4 characters at least';
@@ -22,6 +29,8 @@ if ($_POST) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
 
     if (empty($_POST['role'])) {
       $role = 0;
@@ -37,9 +46,9 @@ if ($_POST) {
       echo "<script>alert('Email duplicated')</script>";
     }else{
       if ($password != null) {
-        $stmt = $pdo->prepare("UPDATE users SET name='$name',email='$email',password='$password',role='$role' WHERE id='$id'");
+        $stmt = $pdo->prepare("UPDATE users SET name='$name',email='$email',password='$password',phone='$phone',address='$address',role='$role' WHERE id='$id'");
       }else{
-        $stmt = $pdo->prepare("UPDATE users SET name='$name',email='$email',role='$role' WHERE id='$id'");
+        $stmt = $pdo->prepare("UPDATE users SET name='$name',email='$email',password='$password',phone='$phone',address='$address',role='$role' WHERE id='$id'");
       }
       $result = $stmt->execute();
       if ($result) {
@@ -80,6 +89,15 @@ $result = $stmt->fetchAll();
                     <label for="">Password</label><p style="color:red"><?php echo empty($passwordError) ? '' : '*'.$passwordError; ?></p>
                     <span style="font-size:10px">The user already has a password</span>
                     <input type="password" name="password" class="form-control">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="">Phone</label><p style="color:red"><?php echo empty($phError) ? '' : '*'.$passwordError; ?></p>
+                    <input type="number" name="phone" class="form-control" value="<?php echo escape($result[0]['phone'])?>">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Address</label><p style="color:red"><?php echo empty($addErrror) ? '' : '*'.$passwordError; ?></p>
+                    <textarea name="address" id="" class="form-control" cols="30" rows="10"><?php echo escape($result[0]['address'])?></textarea>
                   </div>
                   <div class="form-group">
                     <label for="">Role</label>

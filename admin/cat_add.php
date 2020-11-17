@@ -8,21 +8,25 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 }
 
 if ($_POST) {
-  if (empty($_POST['name']) || empty($_POST['description'])) {
+  if (empty($_POST['name']) || empty($_POST['description']) || empty($_POST['date'])) {
     if (empty($_POST['name'])) {
       $nameError = 'Category name is required';
     }
     if (empty($_POST['description'])) {
       $descError = 'Description is required';
     }
+    if (empty($_POST['date'])) {
+      $dateError = 'Date is required';
+    }
   }else{
     $name = $_POST['name'];
     $description = $_POST['description'];
+    $date = $_POST['date'];
 
-    $stmt = $pdo->prepare("INSERT INTO categories(name,description) VALUES (:name,:description)");
+    $stmt = $pdo->prepare("INSERT INTO categories(name,description,created_at) VALUES (:name,:description,:date)");
 
     $result = $stmt->execute(
-        array(':name'=>$name,':description'=>$description)
+        array(':name'=>$name,':description'=>$description,':date'=>$date)
     );
 
     if ($result) {
@@ -51,6 +55,10 @@ if ($_POST) {
                   <div class="form-group">
                     <label for="">Description</label><p style="color:red"><?php echo empty($descError) ? '' : '*'.$descError; ?></p>
                     <textarea class="form-control" name="description" rows="8" cols="80"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Date</label><p style="color:red"><?php echo empty($dateError) ? '' : '*'.$passwordError; ?></p>
+                    <input type="date" name="date" class="form-control">
                   </div>
                   <div class="form-group">
                     <input type="submit" class="btn btn-success" name="" value="SUBMIT">

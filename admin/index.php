@@ -62,7 +62,60 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
                 </div>
                 <br>
                 
-               
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Category</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th style="width: 40px">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    if ($result) {
+                      $i = 1;
+                      foreach ($result as $value) { ?>
+
+                      <?php
+
+                        
+                        $cate = $pdo->prepare("SELECT * FROM categories WHERE id =".$value['category_id']);
+                        $cate->execute();
+                        $cateResult = $cate->fetchAll();
+
+                      ?>
+                        <tr>
+                          <td><?php echo $i;?></td>
+                          <td><?php echo escape($value['name'])?></td>
+                          <td><?php echo escape(substr($value['description'],0,50))?></td>
+                          <td><?php echo escape($cateResult[0]['name'])?></td>
+                          <td><?php echo escape($value['quantity'])?></td>
+                          <td><?php echo escape($value['price'])?></td>
+                          <td>
+                            <div class="btn-group">
+                              <div class="container">
+                                <a href="product_edit.php?id=<?php echo $value['id']?>" type="button" class="btn btn-warning">Edit</a>
+                              </div>
+                              <div class="container">
+                                <a href="product_del.php?id=<?php echo $value['id']?>"
+                                  onclick="return confirm('Are you sure you want to delete this item')"
+                                  type="button" class="btn btn-danger">Delete</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                    <?php
+                      $i++;
+                      }
+                    }
+                    ?>
+                    </tbody>
+                  </tbody>
+                </table><br>
               </div>
               <!-- /.card-body -->
 

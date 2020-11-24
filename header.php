@@ -1,13 +1,27 @@
+
+<?php 
+
+
+
+if(!empty($_POST['search'])){
+	setcookie('search', $_POST['search'], time() + (86400 * 30), "/");
+  }else{
+	if(empty($_GET['pageno'])){
+	  unset($_COOKIE['search']);
+	  setcookie('search',null,-1,'/');
+	}
+  }
+?>
+
 <?php
 
 session_start();
+				
+require 'config/config.php';
 require 'config/common.php';
-
-if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
-  header('Location: login.php');
-}
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -25,7 +39,7 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>AP Shop</title>
+	<title>Karma Shop</title>
 
 	<!--
             CSS
@@ -55,18 +69,10 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<?php
-					$cart = 0;
-						if (isset($_SESSION['cart'])) {
-							foreach ($_SESSION['cart'] as $key => $qty) {
-								$cart += $qty;
-							}
-						}
-					?>
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="cart.php" class="cart"><span class="ti-bag"><?php echo $cart?></span></a></li>
+							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -77,9 +83,9 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 		</div>
 		<div class="search_input" id="search_input_box">
 			<div class="container">
-				<form class="d-flex justify-content-between" action="index.php" method="POST">
-					<input name="_token" type="hidden" value="<?php echo $_SESSION['_token']; ?>">
-					<input type="text" class="form-control" id="search_input" name="search" placeholder="Search Here">
+				<form class="d-flex justify-content-between" method="post" action="index.php">
+				<input name="_token" type="hidden" value="<?php echo $_SESSION['_token']; ?>">
+					<input type="text" class="form-control" name="search" id="search_input" placeholder="Search Here">
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
@@ -89,14 +95,16 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 	<!-- End Header Area -->
 
 	<!-- Start Banner Area -->
-	<section class="banner-area organic-breadcrumb" style="margin-bottom:0 !important">
+	<section class="banner-area organic-breadcrumb">
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Welcome <?php echo escape($_SESSION['username'])?></h1>
-					<a href="logout.php" class="primary-btn" style="line-height: 30px;color: black;background: white;">Logout</a>
+					<h1>Welcome</h1>
+
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- End Banner Area -->
+
+			

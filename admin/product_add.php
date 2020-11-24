@@ -7,6 +7,10 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
   header('Location: login.php');
 }
 
+if($_SESSION['role'] != 1){
+  header('locationlogin.php');
+}
+
         $cat = $pdo->prepare("SELECT * FROM categories ORDER BY id DESC");
         $cat->execute();
         $catResult = $cat->fetchAll();

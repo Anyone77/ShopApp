@@ -26,8 +26,6 @@ if ($_POST) {
 
 	echo "<script>alert('Incorrect Credentials');</script>";
 }
-
-
 ?>
 
 <!DOCTYPE html>

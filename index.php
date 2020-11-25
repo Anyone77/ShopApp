@@ -48,9 +48,9 @@
 
 
 
-				if(!empty($_GET['catid'])){
-                    $catid = $_GET['catid'];
-                    $stmt = $pdo->prepare("SELECT * FROM products WHERE category_id =".$_GET['catid']);
+				if(!empty($_GET['category_id'])){
+                    $catid = $_GET['category_id'];
+                    $stmt = $pdo->prepare("SELECT * FROM products WHERE category_id =".$_GET['category_id']);
                     $stmt->execute();
                     $rawResult = $stmt->fetchAll();
 				   
@@ -60,7 +60,7 @@
 
 					$total_pages = ceil(count($rawResult) / $numOfrecs );
 					
-					$stmt = $pdo->prepare("SELECT * FROM products WHERE category_id=".$_GET['catid']." LIMIT $offset,$numOfrecs ");
+					$stmt = $pdo->prepare("SELECT * FROM products WHERE category_id=".$_GET['category_id']." LIMIT $offset,$numOfrecs ");
 					
                     $stmt->execute();
                     $result = $stmt->fetchAll();
@@ -86,7 +86,7 @@
 
 										 foreach($catResult as $catVal){
 									?>
-									<a href="index.php?catid=<?php echo escape($catVal['id']) ?>" aria-expanded="false" aria-controls="fruitsVegetable">
+									<a href="index.php?category_id=<?php echo escape($catVal['id']) ?>" aria-expanded="false" aria-controls="fruitsVegetable">
 										<span class="lnr lnr-arrow-right"></span>
 										<?php echo escape($catVal['name']) ?>	
 									</a>
@@ -104,18 +104,30 @@
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="pagination">
-						<a href="?pageno=1" class="prev-arrow">First</a>
-						<a <?php if($pageno <= 1){ echo 'disabled';} ?>
-							href="<?php if($pageno <= 1) {echo '#';}else{ echo "?pageno=".($pageno-1);}?>" class="prev-arrow">
-							<i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-						</a>
-						<a href="#" class="active"><?php echo $pageno; ?></a>
-						
-						<a <?php if($pageno >= $total_pages){ echo 'disabled';} ?> 
-							href="<?php if($pageno >= $total_pages) {echo '#';}else{ echo "?pageno=".($pageno+1);}?>" class="next-arrow">
-							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-						</a>
-						<a href="?pageno=<?php echo $total_pages?>" class="prev-arrow">Last</a>
+						<?php  if (!empty($_GET['category_id'])) : ?>
+							<a href="?pageno=1&category_id=<?php echo $_GET['category_id'] ?>" class="active">First</a>
+							<a <?php if($pageno <= 1){ echo 'disabled';} ?> href="<?php if($pageno <= 1) {echo '#';}else{ echo "?pageno=".($pageno-1)."&category_id=".$_GET['category_id'];}?>" class="prev-arrow">
+								<i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+							</a>
+							<a href="#" class="active"><?php echo $pageno; ?></a>
+							<a <?php if($pageno >= $total_pages){ echo 'disabled';} ?>
+								href="<?php if($pageno >= $total_pages) {echo '#';}else{ echo "?pageno=".($pageno+1)."&category_id=".$_GET['category_id'];}?>" class="next-arrow">
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</a>
+							<a href="?pageno=<?php echo $total_pages?>&category_id=<?php echo $_GET['category_id'] ?>" class="active">Last</a>
+						<?php else: ?>
+							<a href="?pageno=1" class="active">First</a>
+							<a <?php if($pageno <= 1){ echo 'disabled';} ?>
+								href="<?php if($pageno <= 1) {echo '#';}else{ echo "?pageno=".($pageno-1);}?>" class="prev-arrow">
+								<i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+							</a>
+							<a href="#" class="active"><?php echo $pageno; ?></a>
+							<a <?php if($pageno >= $total_pages){ echo 'disabled';} ?>
+								href="<?php if($pageno >= $total_pages) {echo '#';}else{ echo "?pageno=".($pageno+1);}?>" class="next-arrow">
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</a>
+							<a href="?pageno=<?php echo $total_pages?>" class="active">Last</a>
+						<?php endif ?>
 					</div>
 				</div>
 

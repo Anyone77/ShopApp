@@ -11,8 +11,8 @@
   $cStmt = $pdo->prepare("SELECT * FROM categories WHERE id=".$res[0]['category_id']);
   $cStmt ->execute();
   $cRes = $cStmt->fetchAll();
-  
 
+  
 
 ?>
 
@@ -43,18 +43,21 @@
             <li><a href="#"><span>Availibility</span> : In Stock</a></li>
           </ul>
           <p><?php echo escape($res[0]['description']) ?></p>
-          <div class="product_count">
-            <label for="qty">Quantity:</label>
-            <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-             class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-             class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-          </div>
-          <div class="card_area d-flex align-items-center">
-            <a class="primary-btn" href="#">Add to Cart</a>
-            <a class="primary-btn" href="index.php">Back</a>
-          </div>
+          <form action="addCart.php" method="post">
+          <input type="hidden" name="id" value="<?php echo escape($res[0]['id']) ?>">
+            <div class="product_count">
+              <label for="qty">Quantity:</label>
+              <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+              class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+              class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+            </div>
+            <div class="card_area d-flex align-items-center">
+              <button style="border:none;" type="submit" class="primary-btn" href="#">Add to Cart</button>
+              <a class="primary-btn" href="index.php">Back</a>
+            </div>
+          </form>
         </div>
       </div>
     </div>

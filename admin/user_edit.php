@@ -7,6 +7,11 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
   header('Location: login.php');
 }
 
+
+if($_SESSION['role'] != 1){
+  header('location:login.php');
+}
+
 if ($_POST) {
   if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['phone'])|| empty($_POST['address'])) {
     if (empty($_POST['name'])) {

@@ -9,7 +9,7 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 
 
 if($_SESSION['role'] != 1){
-  header('locationlogin.php');
+  header('location:login.php');
 }
 
 if ($_POST) {
@@ -62,7 +62,7 @@ if ($_POST) {
                     <textarea class="form-control" name="description" rows="8" cols="80"></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="">Date</label><p style="color:red"><?php echo empty($dateError) ? '' : '*'.$passwordError; ?></p>
+                    <label for="">Date</label><p style="color:red"><?php echo empty($dateError) ? '' : '*'.$dateError; ?></p>
                     <input type="date" name="date" class="form-control">
                   </div>
                   <div class="form-group">

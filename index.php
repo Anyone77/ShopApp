@@ -13,7 +13,7 @@
                   $pageno = 1;
                 }
 
-                $numOfrecs = 3;
+                $numOfrecs = 9;
                 $offset = ($pageno - 1) * $numOfrecs;
 
 				
@@ -99,7 +99,7 @@
 									<?php
 										 }
 					   
-									?>
+									?> 
 									
 									
 								</li>						

@@ -8,7 +8,7 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 }
 
 if($_SESSION['role'] != 1){
-  header('locationlogin.php');
+  header('location:login.php');
 }
 
 $cat = $pdo->prepare("SELECT * FROM categories ORDER BY id DESC");
@@ -50,9 +50,21 @@ if(!empty($_POST)){
    
    
     else{
+
+
+
+      if(is_numeric($_POST['quantity']) != 1){
+        $qtyError = 'Quantity must be Intenger';
+      }
+      if(is_numeric($_POST['price']) != 1){
+        $priceError = 'Price must be Intenger';
+      }
   
-      if($_FILES['image']['name'] != null)
-        {
+
+      if($qtyError == '' && $priceError == ''){ 
+
+        if($_FILES['image']['name'] != null )
+          {
 
             $file = 'images/'.($_FILES['image']['name']);
             $path = pathinfo($file,PATHINFO_EXTENSION);
@@ -83,7 +95,7 @@ if(!empty($_POST)){
                 }
             }
 
-        }else{
+          }else{
 
             $name = $_POST['name'];
             $desc = $_POST['desc'];
@@ -108,6 +120,9 @@ if(!empty($_POST)){
 
 
         }
+
+      }
+    
   
     }
 }

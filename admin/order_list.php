@@ -10,7 +10,7 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 
 
 if($_SESSION['role'] != 1){
-  header('locationlogin.php');
+  header('location:login.php');
 }
 ?>
 
@@ -48,9 +48,7 @@ if($_SESSION['role'] != 1){
               ?>
               <!-- /.card-header -->
               <div class="card-body">
-                <div>
-                  <a href="order_add.php" type="button" class="btn btn-success">New Orders</a>
-                </div>
+               
                 <br>
                 <table class="table table-bordered">
                   <thead>

@@ -10,7 +10,7 @@ if (empty($_SESSION['user_id']) && empty($_SESSION['logged_in'])) {
 
 
 if($_SESSION['role'] != 1){
-  header('locationlogin.php');
+  header('location:login.php');
 }
 
 if(!empty($_POST['search'])){

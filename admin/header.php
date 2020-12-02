@@ -47,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     ?>
 
         
-      <?php if($page != 'order_list.php' && $page != 'order_detail.php' ){ ?>
+      <?php if($page != 'order_list.php' && $page != 'order_detail.php' && $page != 'weekly_report.php' && $page != 'monthly_report.php' ){ ?>
 
         <form class="form-inline ml-3" method="post"
           <?php if($page == 'index.php') :?>
@@ -141,6 +141,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Order
               </p>
             </a>
+          </li>
+
+          <li class="nav-item has-treeview menu">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Report
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="weekly_report.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Weekly Report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="monthly_report.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Monthly Report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="royal_user.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Royal User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="best_seller_item.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Best Seller Item</p>
+                </a>
+              </li>
+            </ul>
           </li>
           
          
